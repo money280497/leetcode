@@ -8,17 +8,16 @@ var eliminateMaximum = function (dist, speed) {
     if (!dist.length) {
         return count
     }
-    let time = []
     for (let i = 0; i < dist.length; i++) {
-        time.push(Math.ceil(dist[i] / speed[i]))
+        dist[i] = Math.ceil(dist[i] / speed[i]);
     }
-    time = time.sort((a, b) => a - b)
+    dist = dist.sort((a, b) => a - b)
     let start = 0;
-    if (time[0] === 0) {
+    if (dist[0] === 0) {
         return 1
     }
     while (start < dist.length) {
-        if (time[start] - count > 0) {
+        if (dist[start] - count > 0) {
             count++;
         } else {
             return count

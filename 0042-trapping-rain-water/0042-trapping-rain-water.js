@@ -13,11 +13,11 @@ var trap = function (height) {
         rightMax = Math.max(rightMax, height[right]);
         if (height[left] < height[right]) {
             trappedWater += leftMax - height[left]
-            left++;
+            left++
         } else {
             trappedWater += rightMax - height[right]
-            right--;
+            right--
         }
     }
-    return trappedWater;
+    return trappedWater
 };

@@ -1,24 +1,20 @@
-/**
- * @param {string} s
- * @return {boolean}
- */
-var isValid = function (s) {
-    const stack = [];
-    const mapping = {
-        ')': '(',
-        '}': '{',
-        ']': '['
-    };
-
-    for (const c of s) {
-        if (Object.values(mapping).includes(c)) {
-            stack.push(c);
-        } else if (mapping.hasOwnProperty(c)) {
-            if (!stack.length || mapping[c] !== stack.pop()) {
-                return false;
-            }
+var isValid = function(s) {
+    // Initialize stack to store the closing brackets expected...
+    let stack = [];
+    // Traverse each charater in input string...
+    for (let idx = 0; idx < s.length; idx++) {
+        // If open parentheses are present, push it to stack...
+        if (s[idx] == '{') {
+            stack.push('}');
+        } else if (s[idx] == '[') {
+            stack.push(']');
+        } else if (s[idx] == '(') {
+            stack.push(')');
+        }
+        // If a close bracket is found, check that it matches the last stored open bracket
+        else if (stack.pop() !== s[idx]) {
+            return false;
         }
     }
-
-    return stack.length === 0;
+    return !stack.length;
 };

@@ -18,7 +18,7 @@ var exist = function(board, word) {
                        backtrack(i, j + 1, k + 1) || 
                        backtrack(i, j - 1, k + 1);
         
-        board[i][j] = temp; 
+
         return result;
     };
     

@@ -17,7 +17,6 @@ var minDepth = function (root) {
     while (queue.length) {
         let levelSize = queue.length
         while (levelSize) {
-
             let item = queue.shift();
             if (!item.left && !item.right) {
                 return minDepth

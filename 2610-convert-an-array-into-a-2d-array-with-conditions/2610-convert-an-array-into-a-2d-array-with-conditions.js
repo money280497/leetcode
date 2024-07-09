@@ -22,5 +22,5 @@ var findMatrix = function (nums) {
             result.push(res)
         }
     }
-    return res
+    return result
 };

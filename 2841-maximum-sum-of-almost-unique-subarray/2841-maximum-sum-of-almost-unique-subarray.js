@@ -4,46 +4,34 @@
  * @param {number} k
  * @return {number}
  */
-var maxSum = function (nums, m, k) {
-    let left = 0,
-        sum = 0,
-        maxima = 0;
-    let count = 0;
+var maxSum = (nums, m, k) => {
     const map = new Map();
-    while (left < k) {
-        if (!map.has(nums[left])) {
-            map.set(nums[left], 1);
-        } else {
-            map.set(nums[left], map.get(nums[left]) + 1);
-        }
-        sum += nums[left];
-        left++;
+    let left = 0, right = 0, sum = 0, maxima = 0;
+    const setter = (item) => {
+        map.set(item, (map.get(item) || 0) + 1);
     }
-    if (map.size >= m) {
+    const remover = (item) => {
+        if (map.get(item) === 1)
+            map.delete(item);
+        else
+            map.set(item, map.get(item) - 1);
+    }
+    while (right < k) {
+        setter(nums[right]);
+        sum += nums[right];
+        right++;
+    }
+    if (map.size >= m)
         maxima = Math.max(sum, maxima);
-    }
-    let right = left;
-    left = 0;
-    console.log({ left, sum, map });
     while (right < nums.length) {
         sum -= nums[left];
-        if (!map.has(nums[right])) {
-            map.set(nums[right], 1);
-        } else {
-            map.set(nums[right], map.get(nums[right]) + 1);
-        }
-        if (map.get(nums[left]) === 1) {
-            map.delete(nums[left])
-        } else {
-            map.set(nums[left], map.get(nums[left]) - 1);
-        }
+        remover(nums[left]);
         sum += nums[right];
-        if (map.size >= m) {
+        setter(nums[right]);
+        if (map.size >= m)
             maxima = Math.max(sum, maxima);
-        }
-        right++;
         left++;
+        right++
     }
-    return maxima;
-};
-console.log(maxSum((nums = [1, 2, 2, 3]), (m = 3), (k = 3)));
+    return maxima
+}

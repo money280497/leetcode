@@ -7,27 +7,24 @@ var lemonadeChange = function (bills) {
     let ten = 0;
 
     for (const bill of bills) {
-        // if we get 5$ 
-        if (bill == 5) {
-            five++;
-        } else if (bill == 10) { // If we get 10$ 
-            if (five >= 1) { // we have to return 5$ so we should have it first
-                five--;
-                ten++;
-            } else {
-                return false;
-            }
-        } else { // If we get 20$ 
-            if (five >= 1 && ten >= 1) { // We have to return 15$ so 1 -- 10$ and 1 -- 5$
+        if (bill === 5) {
+            five++
+        } else if (five > 0 && bill === 10) {
+            five--;
+            ten++;
+        } else if (bill === 20) {
+            if (ten > 0 && five > 0) {
                 ten--;
                 five--;
-            } else if (five >= 3) { // OR we can return 3-- 5% 
-                five -= 3;
-            } else {
-                return false;
             }
+            else if (five > 3) {
+                five -= 3
+            } else {
+                return false
+            }
+        } else {
+            return false
         }
     }
-
     return true;
 };
